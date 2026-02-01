@@ -15,7 +15,7 @@ else
     GRADLE_PROPS =
 endif
 
-.PHONY: help build clean run test assemble install setup-vscode
+.PHONY: help build clean run test assemble install setup-vscode shadow-jar shaded
 
 # Default command
 help:
@@ -24,6 +24,8 @@ help:
 	@echo "  make clean          - Remove build files"
 	@echo "  make run            - Run Hytale server with the plugin"
 	@echo "  make assemble       - Create plugin JAR"
+	@echo "  make shadow-jar     - Build shaded JAR with dependencies"
+	@echo "  make shaded         - Alias for shadow-jar"
 	@echo "  make install        - Copy JAR to Hytale mods folder"
 	@echo "  make test           - Run tests (if available)"
 	@echo "  make setup-vscode   - Generate VS Code debug configuration"
@@ -43,6 +45,13 @@ clean:
 # Create plugin JAR
 assemble:
 	@$(GRADLE_WRAPPER) $(GRADLE_PROPS) assemble
+
+# Build shaded JAR with all dependencies
+shadow-jar:
+	@$(GRADLE_WRAPPER) $(GRADLE_PROPS) shadowJar
+
+# Alias for shadow-jar
+shaded: shadow-jar
 
 # Run tests
 test:
